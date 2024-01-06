@@ -285,6 +285,21 @@ export const getContacts = async (locid:string): Promise<any> => {
   }
 };
 
+export const getBookedSlots = async (locationId:string, calendarId:string, startTime:string, endTime:string): Promise<any> => {
+  try {
+    const { blockedSlots = null }: any = await ghlReqV2({
+      method: "GET",
+      url: `/calendars/blocked-slots/?locationId=${locationId}&calendarId=${calendarId}&startTime=${startTime}&endTime=${endTime}`,
+    });
+    return blockedSlots;
+  } catch (error) {
+    console.log("====================================");
+    console.log("Get Blocked Slots Error", error);
+    console.log("====================================");
+    throw error;
+  }
+};
+
 export const bookAppointment = async (payload: {
   calendarId: string;
   contactId: string;

@@ -40,6 +40,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
   const [disableUntil, setDisableUntil] = useState<Dayjs | null>(null);
   const [slots, setSlots] = useState<slotType[]>([]);
   const [availableSlots, setAvailableSlots] = useState<slotType[]>([]);
+  const [slotsText, setTextSlots] = useState([])
   const [activeDate, setActiveDate] = useState(dayjs());
 
   const getSlots = async () => {
@@ -201,6 +202,14 @@ const Calendar: React.FC<DateSelectorTypes> = ({
     })
   } ,[])
 
+  useEffect(() =>{
+    if (availableSlots && Array.isArray(availableSlots)){
+      setTextSlots(availableSlots?.map(slt =>{
+        return slt?.time?.split('T')[1].split('+')[0]
+      }))
+    }
+  } , [availableSlots])
+
   return (
     <>
       <div 
@@ -253,39 +262,65 @@ const Calendar: React.FC<DateSelectorTypes> = ({
               style={{ transformOrigin: "0 0 0" }}
               {...(renderSlots ? { timeout: 1000 } : {})}
             >
-              <div className="text-center text-2xl max-h-[375px] overflow-auto customScroll">
-                {availableSlots && (
-                  <div>
-                    <ul
-                      role="list"
-                      className="grid grid-cols-1 gap-5 p-2 mt-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-2"
-                    >
-                      {availableSlots.map((slot) => (
-                        <li
-                          key={slot.time}
-                          className={`col-span-1 flex rounded-md shadow-sm cursor-pointer hover:shadow ${
-                            userInputs.slot &&
-                            userInputs.slot.time === slot.time
-                              ? "selected-slot"
-                              : ""
-                          }brand-font`}
-                          onClick={() => slotClicked(slot)}
+              <div className="flex items-start gap-3">
+                <div className="text-center flex-1 text-2xl max-h-[375px] overflow-auto customScroll">
+                  {availableSlots && (
+                    <div>
+                      <ul
+                        role="list"
+                        className="grid grid-cols-1 gap-5 p-2 mt-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-2"
+                      >
+                        {availableSlots.map((slot) => (
+                          <li
+                            key={slot.time}
+                            className={`col-span-1 flex rounded-md shadow-sm cursor-pointer hover:shadow ${
+                              userInputs.slot &&
+                              userInputs.slot.time === slot.time
+                                ? "selected-slot"
+                                : ""
+                            }brand-font`}
+                            onClick={() => slotClicked(slot)}
+                          >
+                            <div className="relative flex items-center justify-between flex-1 bg-white border border-gray-200 rounded-r-md">
+                              <div
+                                className="flex-1 px-4 py-2 text-center text-md"
+                                data-slot={slot.time}
+                              >
+                                {moment
+                                  .tz(slot.time, "Europe/Amsterdam")
+                                  .format("HH:mm")}
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                <div className="min-w-max max-h-[375px] overflow-auto customScroll px-2">
+                  <h3>Unavailable slots</h3>
+                  {
+                    STATIC_SLOTS_LIST?.filter(slt => !slotsText.includes(slt))?.map(bSlot =>{
+                      return (
+                        <div
+                          key={0}
+                          className={`col-span-1 mb-2 flex rounded-md shadow-sm cursor-not-allowed brand-font`}
                         >
                           <div className="relative flex items-center justify-between flex-1 bg-white border border-gray-200 rounded-r-md">
                             <div
                               className="flex-1 px-4 py-2 text-center text-md"
-                              data-slot={slot.time}
                             >
-                              {moment
+                              {bSlot}
+                              {/* {moment
                                 .tz(slot.time, "Europe/Amsterdam")
-                                .format("HH:mm")}
+                                .format("HH:mm")} */}
                             </div>
                           </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                        </div>
+                      )
+                    })
+                  }
+                </div>
               </div>
             </Grow>
           </div>
@@ -294,5 +329,33 @@ const Calendar: React.FC<DateSelectorTypes> = ({
     </>
   );
 };
+
+
+const STATIC_SLOTS_LIST = [
+  '00:30:00',
+  '01:00:00', '01:30:00',
+  '02:00:00', '02:30:00',
+  '03:00:00', '03:30:00',
+  '04:00:00', '04:30:00',
+  '05:00:00', '05:30:00',
+  '06:00:00', '06:30:00',
+  '07:00:00', '07:30:00',
+  '08:00:00', '08:30:00',
+  '09:00:00', '09:30:00',
+  '10:00:00', '10:30:00',
+  '11:00:00', '11:30:00',
+  '12:00:00', '12:30:00',
+  '13:00:00', '13:30:00',
+  '14:00:00', '14:30:00',
+  '15:00:00', '15:30:00',
+  '16:00:00', '16:30:00',
+  '17:00:00', '17:30:00',
+  '18:00:00', '18:30:00',
+  '19:00:00', '19:30:00',
+  '20:00:00', '20:30:00',
+  '21:00:00', '21:30:00',
+  '22:00:00', '22:30:00',
+  '23:00:00', '23:30:00',
+]
 
 export default Calendar;
