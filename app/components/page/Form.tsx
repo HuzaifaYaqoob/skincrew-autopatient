@@ -139,7 +139,6 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
       })
     }
   }, [userForm.selected_datetime])
-  console.log(userInputs)
 
   return (
     <>
