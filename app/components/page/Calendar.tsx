@@ -16,6 +16,7 @@ interface DateSelectorTypes {
   userInputs: formDataType;
   onSubmit: (data: formDataType) => void;
   calendarId: string;
+  setActiveStep: () => void
 }
 
 interface slotType {
@@ -27,6 +28,8 @@ const Calendar: React.FC<DateSelectorTypes> = ({
   calendarId,
   userInputs,
   onSubmit,
+  setActiveStep,
+  setFormData,
 }) => {
   const [calendarStartDay, setCalendarStartDay] = useState(dayjs());
   const [loading, setLoading] = useState(true);
@@ -191,8 +194,27 @@ const Calendar: React.FC<DateSelectorTypes> = ({
     );
   }, []);
 
+  useEffect(()=>{
+    setFormData({
+      ...userInputs,
+      customDateTime : false
+    })
+  } ,[])
+
   return (
     <>
+      <div 
+        className="cursor-pointer px-4 bg-blue-600 max-w-max py-1 text-white rounded-lg"
+        onClick={() =>{
+          setFormData({
+            ...userInputs,
+            customDateTime : true
+          })
+          setActiveStep(pr => pr + 1)
+        }}
+      >
+          Fügen Sie ein benutzerdefiniertes Datum und eine Uhrzeit hinzu
+      </div>
       <div className="flex w-full">
         <div className={renderSlots ? "" : "w-full"}>
           {!renderSlots && (
@@ -204,6 +226,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
             </LocalizationProvider>
           )}
         </div>
+        
         {renderSlots && (
           <div className="flex flex-col w-full">
             <button

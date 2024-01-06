@@ -118,6 +118,27 @@ const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
     }
   }, []);
 
+  useEffect(()=>{
+    let cat = CalendarData[formData.category]
+    if (cat && hasValue(formData.treatment) && hasValue(formData.location)){
+      let treat_ment = CalendarData[formData.category][formData.treatment]
+      if (treat_ment){
+        let loc = treat_ment.locations?.find(itm => itm.id == formData.location)
+        if (loc){
+          let cal_id = loc.id
+          let roomId = loc.roomId
+          setFormData({
+            ...formData,
+            custom_datetime_calendarId : cal_id,
+            custom_datetime_room : roomId,
+          })
+        }
+      }
+    }
+
+  }, [formData.category, formData.treatment, formData.location])
+
+
   return (
     <>
       {!isQuery && (

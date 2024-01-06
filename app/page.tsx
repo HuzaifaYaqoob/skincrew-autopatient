@@ -238,7 +238,6 @@ const App = () => {
     getLocationContacts()
   }, [])
 
-
   return (
     <div className="parent-container max-w-4xl m-auto mt-10 pt-10">
       <Box sx={{ width: "100%" }}>
@@ -272,6 +271,8 @@ const App = () => {
               calendarId={formData.location}
               userInputs={formData}
               onSubmit={updateDataAndNav}
+              setActiveStep={setActiveStep}
+              setFormData={setFormData}
             />
           )}
           {activeStep === 2 && !success && !failed && (
@@ -279,6 +280,7 @@ const App = () => {
               userInputs={formData} 
               onSubmit={updateDataAndNav} 
               locContacts={locContacts}
+              setFormData={setFormData}
             />
           )}
           {success && (

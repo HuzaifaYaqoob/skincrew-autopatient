@@ -13,10 +13,11 @@ import eventBus from "../../utils";
 interface FormTypes {
   userInputs: formDataType;
   onSubmit: (data: formDataType) => void;
-  locContacts? : any
+  locContacts? : any,
+  setFormData : any
 }
 
-const Form: React.FC<FormTypes> = ({ userInputs, locContacts }) => {
+const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => {
   const [userForm, setUserForm] = useState({
     // anrede: userInputs.anrede ?? "",
     geschelcht: userInputs.geschelcht ?? "",
@@ -123,7 +124,23 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts }) => {
       }
     }
   } ,[userInputs?.contact])
-  
+
+  useEffect(() =>{
+    if (userForm.selected_datetime){
+      let prevSlots = userInputs.slot || {}
+      setFormData({
+        ...userInputs,
+        slot : {
+          ...prevSlots,
+          time : `${userForm.selected_datetime}:00+01:00`,
+          calendarId : userInputs?.custom_datetime_calendarId,
+          room : userInputs?.custom_datetime_room,
+        }
+      })
+    }
+  }, [userForm.selected_datetime])
+  console.log(userInputs)
+
   return (
     <>
       <div className="flex w-full mb-3"></div>
@@ -262,6 +279,24 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts }) => {
           }
         />
       </div>
+      {
+        // userInputs?.customDateTime && 
+        <div className="flex flex-col gap-3 md:flex-row w-full mb-3">
+          <div className="w-full">
+            <TextField
+              fullWidth
+              label="Benutzerdefiniertes Datum und Uhrzeit *"
+              name="selected_datetime"
+              id="fullWidth"
+              type="datetime-local"
+              value={userForm.selected_datetime}
+              onChange={(event) =>{
+                setUserForm({ ...userForm, selected_datetime: `${event.target.value}` })
+              }}
+            />
+          </div>
+        </div>
+      }
       <div className="w-full mb-3 flex">
         <Checkbox
           checked={userForm.tos}
