@@ -28,7 +28,6 @@ const Calendar: React.FC<DateSelectorTypes> = ({
   userInputs,
   onSubmit,
 }) => {
-  console.log(calendarId)
   const [calendarStartDay, setCalendarStartDay] = useState(dayjs());
   const [loading, setLoading] = useState(true);
   const [timezone] = useState<string>("Europe/Amsterdam");

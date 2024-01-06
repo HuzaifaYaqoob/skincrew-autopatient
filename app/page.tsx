@@ -25,10 +25,6 @@ import moment from "moment-timezone";
 moment.locale("de");
 import check from "@/app/image/check-mark.png";
 import Image from "next/image";
-import {
-  getContacts,
-} from "@/app/apRequest";
-
 
 const BackButton = styled(Button)<ButtonProps>(() => ({
   color: "#ffffff",
@@ -75,8 +71,8 @@ const App = () => {
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [formData, setFormData] = useState<any>({ ...initialFormData });
   const [errorMessage, setErrorMessage] = useState(null);
+  const [locContacts, setLocContacts] = useState([])
 
-  console.log(formData)
 
   const updateDataAndNav = (data: formDataType) => {
     setFormData((oldData: any) => ({ ...oldData, ...data }));
@@ -226,15 +222,23 @@ const App = () => {
     setErrorMessage(null);
   };
 
-  const getLocationContacts = async () =>{
-    const contact = await getContacts();
-    console.log()
 
-  }
+  const getLocationContacts = async () => {
+    try {
+      const contacts = await fetchData(`contacts/get_contacts/?LocationId=LiChYfzKCPU5itr4TFJv`);
+      setLocContacts(contacts)
+    } catch (error) {
+      console.log('error :: ', error)
+    } finally {
+      console.log('get contact request finished')
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() =>{
     getLocationContacts()
-  } , [])
+  }, [])
+
+
   return (
     <div className="parent-container max-w-4xl m-auto mt-10 pt-10">
       <Box sx={{ width: "100%" }}>
@@ -260,6 +264,7 @@ const App = () => {
             <CategoryTreatmentLocation
               onSubmit={updateDataAndNav}
               value={formData}
+              locContacts={locContacts}
             />
           )}
           {activeStep === 1 && (
@@ -270,7 +275,11 @@ const App = () => {
             />
           )}
           {activeStep === 2 && !success && !failed && (
-            <Form userInputs={formData} onSubmit={updateDataAndNav} />
+            <Form 
+              userInputs={formData} 
+              onSubmit={updateDataAndNav} 
+              locContacts={locContacts}
+            />
           )}
           {success && (
             <div className="pb-4">

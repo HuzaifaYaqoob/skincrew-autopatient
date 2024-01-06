@@ -36,7 +36,13 @@ function removeTraceId(data: any): any {
 async function refreshToken() {
   const token = await getToken();
   const expireDT = moment(token?.expiresIn);
+
+  console.log('TOken Received /////////////')
+  console.log(token?.expiresIn)
+  console.log(expireDT.isBefore(moment.now()))
+  console.log('TOken Received /////////////')
   if (expireDT.isBefore(moment.now())) {
+    console.log('TOken Received /////////////')
     const payload = {
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
@@ -89,6 +95,46 @@ async function refreshToken() {
   }
 }
 
+// var SpareToken = {
+//   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgiLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiY2FsZW5kYXJzLnJlYWRvbmx5IiwiYnVzaW5lc3Nlcy53cml0ZSIsImJ1c2luZXNzZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FtcGFpZ25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMud3JpdGUiLCJjb252ZXJzYXRpb25zL21lc3NhZ2UucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zL21lc3NhZ2Uud3JpdGUiLCJjb250YWN0cy5yZWFkb25seSIsImNvbnRhY3RzLndyaXRlIiwiZm9ybXMucmVhZG9ubHkiLCJmb3Jtcy53cml0ZSIsImxpbmtzLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbUZpZWxkcy5yZWFkb25seSIsImxvY2F0aW9ucy9jdXN0b21WYWx1ZXMud3JpdGUiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJ1c2Vycy5yZWFkb25seSIsInVzZXJzLndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsInNuYXBzaG90cy5yZWFkb25seSIsIndvcmtmbG93cy5yZWFkb25seSIsInN1cnZleXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJvcHBvcnR1bml0aWVzLnJlYWRvbmx5Iiwib3Bwb3J0dW5pdGllcy53cml0ZSJdLCJjbGllbnQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMiLCJjbGllbnRLZXkiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgifSwiaWF0IjoxNzA0NTQ5MDc3LjksImV4cCI6MTcwNDYzNTQ3Ny45fQ.pAfQPvOaZx1jlFwaEYTwsGL0anxIUcjLg_eX4OCowyc",
+//   "token_type": "Bearer",
+//   "expiresIn": 86399,
+//   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgiLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiY2FsZW5kYXJzLnJlYWRvbmx5IiwiYnVzaW5lc3Nlcy53cml0ZSIsImJ1c2luZXNzZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FtcGFpZ25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMud3JpdGUiLCJjb252ZXJzYXRpb25zL21lc3NhZ2UucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zL21lc3NhZ2Uud3JpdGUiLCJjb250YWN0cy5yZWFkb25seSIsImNvbnRhY3RzLndyaXRlIiwiZm9ybXMucmVhZG9ubHkiLCJmb3Jtcy53cml0ZSIsImxpbmtzLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbUZpZWxkcy5yZWFkb25seSIsImxvY2F0aW9ucy9jdXN0b21WYWx1ZXMud3JpdGUiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJ1c2Vycy5yZWFkb25seSIsInVzZXJzLndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsInNuYXBzaG90cy5yZWFkb25seSIsIndvcmtmbG93cy5yZWFkb25seSIsInN1cnZleXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJvcHBvcnR1bml0aWVzLnJlYWRvbmx5Iiwib3Bwb3J0dW5pdGllcy53cml0ZSJdLCJjbGllbnQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMiLCJjbGllbnRLZXkiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgifSwiaWF0IjoxNzA0NTQ5MDc3LjkwMSwiZXhwIjoxNzM2MDg1MDc3LjkwMSwidW5pcXVlSWQiOiIxNTg1NzVjZC03M2VkLTRlMGUtYWZmNC1jNDAyMWNiYzY0ZGYifQ.Vas6YnhSAN6NpqdC54tYr-MQlu_JsVtFqoSxgf8nwTc",
+//   "scope": "calendars.readonly businesses.write businesses.readonly calendars.write calendars/events.readonly calendars/events.write calendars/groups.readonly calendars/groups.write campaigns.readonly conversations.readonly conversations.write conversations/message.readonly conversations/message.write contacts.readonly contacts.write forms.readonly forms.write links.readonly links.write locations.write locations.readonly locations/customValues.readonly locations/customFields.readonly locations/customValues.write locations/customFields.write locations/tasks.readonly locations/tasks.write locations/tags.readonly locations/tags.write locations/templates.readonly users.readonly users.write oauth.write oauth.readonly snapshots.readonly workflows.readonly surveys.readonly medias.readonly medias.write opportunities.readonly opportunities.write",
+//   "userType": "Company",
+//   "companyId": "iE7u4bMrhCpn1UiucIjX",
+//   "userId": "1bk3D7ACF76mmNUk8xuC"
+// }
+
+// var SpareToken = {
+//   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgiLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiY2FsZW5kYXJzLnJlYWRvbmx5IiwiYnVzaW5lc3Nlcy53cml0ZSIsImJ1c2luZXNzZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FtcGFpZ25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMud3JpdGUiLCJjb252ZXJzYXRpb25zL21lc3NhZ2UucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zL21lc3NhZ2Uud3JpdGUiLCJjb250YWN0cy5yZWFkb25seSIsImNvbnRhY3RzLndyaXRlIiwiZm9ybXMucmVhZG9ubHkiLCJmb3Jtcy53cml0ZSIsImxpbmtzLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbUZpZWxkcy5yZWFkb25seSIsImxvY2F0aW9ucy9jdXN0b21WYWx1ZXMud3JpdGUiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJ1c2Vycy5yZWFkb25seSIsInVzZXJzLndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsInNuYXBzaG90cy5yZWFkb25seSIsIndvcmtmbG93cy5yZWFkb25seSIsInN1cnZleXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJvcHBvcnR1bml0aWVzLnJlYWRvbmx5Iiwib3Bwb3J0dW5pdGllcy53cml0ZSJdLCJjbGllbnQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMiLCJjbGllbnRLZXkiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgifSwiaWF0IjoxNzA0NTQ5MjI1Ljg2MSwiZXhwIjoxNzA0NjM1NjI1Ljg2MX0.li4sm-AHLQ0jXEiKodqxU9JTzitrH2Bde43IKZDQ-44",
+//   "token_type": "Bearer",
+//   "expiresIn": 86399,
+//   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgiLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiY2FsZW5kYXJzLnJlYWRvbmx5IiwiYnVzaW5lc3Nlcy53cml0ZSIsImJ1c2luZXNzZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FtcGFpZ25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMud3JpdGUiLCJjb252ZXJzYXRpb25zL21lc3NhZ2UucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zL21lc3NhZ2Uud3JpdGUiLCJjb250YWN0cy5yZWFkb25seSIsImNvbnRhY3RzLndyaXRlIiwiZm9ybXMucmVhZG9ubHkiLCJmb3Jtcy53cml0ZSIsImxpbmtzLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbUZpZWxkcy5yZWFkb25seSIsImxvY2F0aW9ucy9jdXN0b21WYWx1ZXMud3JpdGUiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJ1c2Vycy5yZWFkb25seSIsInVzZXJzLndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsInNuYXBzaG90cy5yZWFkb25seSIsIndvcmtmbG93cy5yZWFkb25seSIsInN1cnZleXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJvcHBvcnR1bml0aWVzLnJlYWRvbmx5Iiwib3Bwb3J0dW5pdGllcy53cml0ZSJdLCJjbGllbnQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMiLCJjbGllbnRLZXkiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgifSwiaWF0IjoxNzA0NTQ5MjI1Ljg2MSwiZXhwIjoxNzM2MDg1MjI1Ljg2MSwidW5pcXVlSWQiOiI2YjcwNTdhNS05M2NlLTQyOGEtODRiMS03NTUyYzY2NjcyZTgifQ.z7E1lMJFf7TOPGcJjaJDt7e2uW7cY27lvL2zNmWQdI8",
+//   "scope": "calendars.readonly businesses.write businesses.readonly calendars.write calendars/events.readonly calendars/events.write calendars/groups.readonly calendars/groups.write campaigns.readonly conversations.readonly conversations.write conversations/message.readonly conversations/message.write contacts.readonly contacts.write forms.readonly forms.write links.readonly links.write locations.write locations.readonly locations/customValues.readonly locations/customFields.readonly locations/customValues.write locations/customFields.write locations/tasks.readonly locations/tasks.write locations/tags.readonly locations/tags.write locations/templates.readonly users.readonly users.write oauth.write oauth.readonly snapshots.readonly workflows.readonly surveys.readonly medias.readonly medias.write opportunities.readonly opportunities.write",
+//   "userType": "Company",
+//   "companyId": "iE7u4bMrhCpn1UiucIjX",
+//   "userId": "1bk3D7ACF76mmNUk8xuC"
+// }
+
+// accessToken
+// refreshToken
+// expiresIn
+
+var SpareToken = {
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiTGlDaFlmektDUFU1aXRyNFRGSnYiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjU5OTRjMTViNTg1NTUyOTI5N2I1OTAzLWxyMjJidmxoIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiTGlDaFlmektDUFU1aXRyNFRGSnYiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNhbGVuZGFycy5yZWFkb25seSIsImJ1c2luZXNzZXMud3JpdGUiLCJidXNpbmVzc2VzLnJlYWRvbmx5IiwiY2FsZW5kYXJzLndyaXRlIiwiY2FsZW5kYXJzL2V2ZW50cy5yZWFkb25seSIsImNhbGVuZGFycy9ldmVudHMud3JpdGUiLCJjYWxlbmRhcnMvZ3JvdXBzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2dyb3Vwcy53cml0ZSIsImNhbXBhaWducy5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zLndyaXRlIiwiY29udmVyc2F0aW9ucy9tZXNzYWdlLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy9tZXNzYWdlLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiLCJjb250YWN0cy53cml0ZSIsImZvcm1zLnJlYWRvbmx5IiwiZm9ybXMud3JpdGUiLCJsaW5rcy5yZWFkb25seSIsImxpbmtzLndyaXRlIiwibG9jYXRpb25zLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbVZhbHVlcy5yZWFkb25seSIsImxvY2F0aW9ucy9jdXN0b21GaWVsZHMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLndyaXRlIiwibG9jYXRpb25zL2N1c3RvbUZpZWxkcy53cml0ZSIsImxvY2F0aW9ucy90YXNrcy5yZWFkb25seSIsImxvY2F0aW9ucy90YXNrcy53cml0ZSIsImxvY2F0aW9ucy90YWdzLnJlYWRvbmx5IiwibG9jYXRpb25zL3RhZ3Mud3JpdGUiLCJsb2NhdGlvbnMvdGVtcGxhdGVzLnJlYWRvbmx5IiwidXNlcnMucmVhZG9ubHkiLCJ1c2Vycy53cml0ZSIsIndvcmtmbG93cy5yZWFkb25seSIsInN1cnZleXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJvcHBvcnR1bml0aWVzLnJlYWRvbmx5Iiwib3Bwb3J0dW5pdGllcy53cml0ZSJdLCJjbGllbnQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMiLCJjbGllbnRLZXkiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgifSwiaWF0IjoxNzA0NTUwNTc1LjExMiwiZXhwIjoxNzA0NjM2OTc1LjExMn0.eontZxrHB4jeKh4OiRSRzTglqIaejZ0-r-d03FqKlvk",
+  "token_type": "Bearer",
+  "expiresIn": 86400,
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiTGlDaFlmektDUFU1aXRyNFRGSnYiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjU5OTRjMTViNTg1NTUyOTI5N2I1OTAzLWxyMjJidmxoIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiTGlDaFlmektDUFU1aXRyNFRGSnYiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNhbGVuZGFycy5yZWFkb25seSIsImJ1c2luZXNzZXMud3JpdGUiLCJidXNpbmVzc2VzLnJlYWRvbmx5IiwiY2FsZW5kYXJzLndyaXRlIiwiY2FsZW5kYXJzL2V2ZW50cy5yZWFkb25seSIsImNhbGVuZGFycy9ldmVudHMud3JpdGUiLCJjYWxlbmRhcnMvZ3JvdXBzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2dyb3Vwcy53cml0ZSIsImNhbXBhaWducy5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zLndyaXRlIiwiY29udmVyc2F0aW9ucy9tZXNzYWdlLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy9tZXNzYWdlLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiLCJjb250YWN0cy53cml0ZSIsImZvcm1zLnJlYWRvbmx5IiwiZm9ybXMud3JpdGUiLCJsaW5rcy5yZWFkb25seSIsImxpbmtzLndyaXRlIiwibG9jYXRpb25zLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbVZhbHVlcy5yZWFkb25seSIsImxvY2F0aW9ucy9jdXN0b21GaWVsZHMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLndyaXRlIiwibG9jYXRpb25zL2N1c3RvbUZpZWxkcy53cml0ZSIsImxvY2F0aW9ucy90YXNrcy5yZWFkb25seSIsImxvY2F0aW9ucy90YXNrcy53cml0ZSIsImxvY2F0aW9ucy90YWdzLnJlYWRvbmx5IiwibG9jYXRpb25zL3RhZ3Mud3JpdGUiLCJsb2NhdGlvbnMvdGVtcGxhdGVzLnJlYWRvbmx5IiwidXNlcnMucmVhZG9ubHkiLCJ1c2Vycy53cml0ZSIsIndvcmtmbG93cy5yZWFkb25seSIsInN1cnZleXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJvcHBvcnR1bml0aWVzLnJlYWRvbmx5Iiwib3Bwb3J0dW5pdGllcy53cml0ZSJdLCJjbGllbnQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMiLCJjbGllbnRLZXkiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgifSwiaWF0IjoxNzA0NTUwNTc1LjExMiwiZXhwIjoxNzM2MDg2NTc1LjExMiwidW5pcXVlSWQiOiJhOWU1YTE3My1mMDc5LTRjOWMtYTkxMC1kMmYxZTYwNmQ2YWQifQ.8KDIRsh59_V4FFK71Mr56md47C3bcz6v_84IygsgpBc",
+  "scope": "calendars.readonly businesses.write businesses.readonly calendars.write calendars/events.readonly calendars/events.write calendars/groups.readonly calendars/groups.write campaigns.readonly conversations.readonly conversations.write conversations/message.readonly conversations/message.write contacts.readonly contacts.write forms.readonly forms.write links.readonly links.write locations.readonly locations/customValues.readonly locations/customFields.readonly locations/customValues.write locations/customFields.write locations/tasks.readonly locations/tasks.write locations/tags.readonly locations/tags.write locations/templates.readonly users.readonly users.write workflows.readonly surveys.readonly medias.readonly medias.write opportunities.readonly opportunities.write",
+  "userType": "Location",
+  "companyId": "iE7u4bMrhCpn1UiucIjX",
+  "locationId": "LiChYfzKCPU5itr4TFJv",
+  "userId": "1bk3D7ACF76mmNUk8xuC",
+  "traceId": "798851b5-3d56-4d7e-b14f-5d0f92b87a4a"
+}
+
+
 export const ghlReqV2 = async (options: {
   url: string;
   method: string;
@@ -96,7 +142,9 @@ export const ghlReqV2 = async (options: {
   data?: any;
   params?: { [key: string]: string | number };
 }): Promise<AxiosResponse<any> | AxiosInstance> => {
-  const token = await getToken();
+  // const token = await getToken();
+  const token = SpareToken
+
   let axiosConfig: any = {
     baseURL: "https://services.leadconnectorhq.com",
     headers: {
@@ -125,6 +173,8 @@ export const ghlReqV2 = async (options: {
       return removeTraceId(r.data);
     })
     .catch(async (error) => {
+      console.log('error.response.data.message :: ', error.response.data.message)
+      console.log(error.response.data.statusCode)
       if (error.response) {
         if (
           error.response.data &&
@@ -137,7 +187,7 @@ export const ghlReqV2 = async (options: {
           ) {
             try {
               console.log("Refreshing token");
-              const rf = await refreshToken();
+              let rf = await refreshToken();
               axiosConfig.headers.Authorization = "Bearer " + rf?.accessToken;
               return await axios
                 .create(axiosConfig)
@@ -146,7 +196,8 @@ export const ghlReqV2 = async (options: {
                   return removeTraceId(r.data);
                 });
             } catch (e: any) {
-              throw new Error(e);
+              throw e.response.data;
+              // throw new Error(e);
             }
           }
         }
@@ -217,19 +268,20 @@ export const upsertContact = async (data: any): Promise<any> => {
   }
 };
 
-export const getContacts = async (): Promise<any> => {
+export const getContacts = async (locid:string): Promise<any> => {
   try {
-    const locationId = process.env.LOCATION;
-    const { contact = null }: any = await ghlReqV2({
+    const locationId = locid || process.env.LOCATION;
+    console.log(locationId)
+    const { contacts = null }: any = await ghlReqV2({
       method: "GET",
       url: `/contacts/?locationId=${locationId}`,
     });
-    return contact;
+    return contacts;
   } catch (error) {
     console.log("====================================");
-    console.log("Contact Error", error);
+    console.log("Get Contact Error", error);
     console.log("====================================");
-    return null;
+    throw error;
   }
 };
 

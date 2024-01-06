@@ -18,6 +18,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 interface CategoryTreatmentLocationProps {
   onSubmit: (data: formDataType) => void;
   value: formDataType;
+  locContacts? : any
 }
 
 const ContinueButton = styled(Button)<ButtonProps>(() => ({
@@ -31,6 +32,7 @@ const ContinueButton = styled(Button)<ButtonProps>(() => ({
 const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
   onSubmit,
   value,
+  locContacts
 }) => {
   const [formData, setFormData] = useState<formDataType>({
     category: "",
@@ -115,8 +117,6 @@ const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
       }
     }
   }, []);
-
-  console.log(CalendarData)
 
   return (
     <>
@@ -235,6 +235,36 @@ const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
           />
         </RadioGroup>
       )}
+      {
+        hasValue(formData.location) && formData.patiententyp == 'Stammpatient' &&
+        <>
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            className="flex flex-col mt-5"
+          >
+            <FormControl fullWidth size="medium">
+              <InputLabel id="Stammpatient-select-label">Stammpatient</InputLabel>
+              <Select
+                labelId="Stammpatient-select-label"
+                id="Stammpatient-select"
+                label="Stammpatient"
+                onChange={(e) =>
+                  setFormValue("contact", e.target.value as string)
+                }
+                value={formData?.contact}
+              >
+                {locContacts?.map((contact: TreatmentLocationType) => (
+                  <MenuItem value={contact.id} key={contact.id}>
+                    {contact.contactName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </>
+      }
       {formData.category &&
         formData.treatment !== "" &&
         formData.location !== "" &&

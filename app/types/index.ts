@@ -36,6 +36,7 @@ export interface formDataType {
   besondereWunsche?: string | null | "";
   patiententyp: any;
   tos: boolean;
+  contact? : string;
 }
 
 interface treatmentLocation {

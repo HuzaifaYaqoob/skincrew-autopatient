@@ -13,9 +13,10 @@ import eventBus from "../../utils";
 interface FormTypes {
   userInputs: formDataType;
   onSubmit: (data: formDataType) => void;
+  locContacts? : any
 }
 
-const Form: React.FC<FormTypes> = ({ userInputs }) => {
+const Form: React.FC<FormTypes> = ({ userInputs, locContacts }) => {
   const [userForm, setUserForm] = useState({
     // anrede: userInputs.anrede ?? "",
     geschelcht: userInputs.geschelcht ?? "",
@@ -105,6 +106,25 @@ const Form: React.FC<FormTypes> = ({ userInputs }) => {
     );
   }, []);
 
+  useEffect(()=>{
+    if (userInputs?.contact){
+      let contact = locContacts?.find((itm) => itm.id == userInputs?.contact)
+      if (contact){
+        console.log(contact)
+        setUserForm({
+          ...userForm,
+          vorname : contact.firstName,
+          nachname : contact.lastName,
+          email : contact.email,
+          mobiltelefon : contact.phone,
+          adresse : contact.address1,
+          plz : contact.postalCode,
+          stadt : contact.city,
+        })
+      }
+    }
+  } ,[userInputs?.contact])
+  
   return (
     <>
       <div className="flex w-full mb-3"></div>
