@@ -105,12 +105,11 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts }) => {
       "*"
     );
   }, []);
-
+``
   useEffect(()=>{
     if (userInputs?.contact){
       let contact = locContacts?.find((itm) => itm.id == userInputs?.contact)
       if (contact){
-        console.log(contact)
         setUserForm({
           ...userForm,
           vorname : contact.firstName,
