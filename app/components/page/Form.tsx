@@ -279,7 +279,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
         />
       </div>
       {
-        // userInputs?.customDateTime && 
+        userInputs?.customDateTime && 
         <div className="flex flex-col gap-3 md:flex-row w-full mb-3">
           <div className="w-full">
             <TextField
