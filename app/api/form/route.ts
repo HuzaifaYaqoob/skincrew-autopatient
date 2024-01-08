@@ -90,7 +90,7 @@ export async function PUT(req: NextRequest) {
         });
         try {
           if (block) {
-            let dt = {}
+            let dt : any = {}
             if (body?.slot?.endtime){
               dt.endTime = body?.slot?.endtime
             }

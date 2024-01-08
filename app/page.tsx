@@ -272,6 +272,7 @@ const App = () => {
               userInputs={formData}
               onSubmit={updateDataAndNav}
               setActiveStep={setActiveStep}
+              activeStep={activeStep}
               setFormData={setFormData}
             />
           )}

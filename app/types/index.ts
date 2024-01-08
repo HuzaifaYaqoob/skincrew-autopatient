@@ -37,6 +37,9 @@ export interface formDataType {
   patiententyp: any;
   tos: boolean;
   contact? : string;
+  custom_datetime_calendarId? : any;
+  custom_datetime_room? : any;
+  customDateTime? : any;
 }
 
 interface treatmentLocation {

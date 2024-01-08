@@ -13,8 +13,8 @@ import eventBus from "../../utils";
 interface FormTypes {
   userInputs: formDataType;
   onSubmit: (data: formDataType) => void;
-  locContacts? : any,
-  setFormData : any
+  locContacts? : any;
+  setFormData : any;
 }
 
 const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => {
@@ -30,6 +30,10 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
     stadt: userInputs.stadt ?? "",
     besondereWunsche: userInputs.besondereWunsche ?? "",
     tos: false,
+    selected_date: "",
+    selected_starttime: "",
+    selected_endtime: "",
+    customDateTime: "",
   });
 
   const [error, setError] = useState<null | string>(null);
@@ -109,7 +113,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
 ``
   useEffect(()=>{
     if (userInputs?.contact){
-      let contact = locContacts?.find((itm) => itm.id == userInputs?.contact)
+      let contact = locContacts?.find((itm:any) => itm.id == userInputs?.contact)
       if (contact){
         setUserForm({
           ...userForm,

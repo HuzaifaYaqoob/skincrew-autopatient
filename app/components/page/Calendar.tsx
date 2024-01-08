@@ -16,7 +16,9 @@ interface DateSelectorTypes {
   userInputs: formDataType;
   onSubmit: (data: formDataType) => void;
   calendarId: string;
-  setActiveStep: () => void
+  setActiveStep: (nmbr:number) => void,
+  setFormData : any;
+  activeStep : any;
 }
 
 interface slotType {
@@ -30,6 +32,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
   onSubmit,
   setActiveStep,
   setFormData,
+  activeStep,
 }) => {
   const [calendarStartDay, setCalendarStartDay] = useState(dayjs());
   const [loading, setLoading] = useState(true);
@@ -40,7 +43,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
   const [disableUntil, setDisableUntil] = useState<Dayjs | null>(null);
   const [slots, setSlots] = useState<slotType[]>([]);
   const [availableSlots, setAvailableSlots] = useState<slotType[]>([]);
-  const [slotsText, setTextSlots] = useState([])
+  const [slotsText, setTextSlots] = useState<string[]>([])
   const [activeDate, setActiveDate] = useState(dayjs());
 
   const getSlots = async () => {
@@ -219,7 +222,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
             ...userInputs,
             customDateTime : true
           })
-          setActiveStep(pr => pr + 1)
+          setActiveStep(activeStep + 1)
         }}
       >
           Fügen Sie ein benutzerdefiniertes Datum und eine Uhrzeit hinzu

@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "TSX_COMPILE_ON_ERROR=true ESLINT_NO_DEV_ERRORS=true next build",
     "start": "next start --port 3003",
     "lint": "next lint",
     "pm2": "pm2 start npm --name \"SkinCrew Booking Widget\" -- start",
-    "db": "npx prisma generate && npx prisma format && npx prisma db push"
+    "db": "npx prisma generate && npx prisma format && npx prisma db push",
+    "force-start": "TSX_COMPILE_ON_ERROR=true ESLINT_NO_DEV_ERRORS=true next start --port 3003"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

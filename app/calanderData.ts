@@ -3,6 +3,7 @@ export interface TreatmentLocationType {
   name: string;
   roomId?: null | string;
   rooms?: null | string[];
+  contactName?: any;
 }
 export interface TreatmentType {
   name: string;
