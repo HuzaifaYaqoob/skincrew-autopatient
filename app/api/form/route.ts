@@ -90,11 +90,18 @@ export async function PUT(req: NextRequest) {
         });
         try {
           if (block) {
+            let dt = {}
+            if (body?.slot?.endtime){
+              dt.endTime = body?.slot?.endtime
+            }
+            console.log('Appointment Ent Time')
+            console.log(dt)
             const appt = await bookAppointment({
               calendarId: body.slot.calendarId,
               contactId: contact.id,
               startTime: body.slot.time,
               title: `${payload.firstName} ${payload.lastName} booked for ${treatment.name} in ${location?.name}`,
+              ...dt
             });
             if (appt && appt.id) {
               try {

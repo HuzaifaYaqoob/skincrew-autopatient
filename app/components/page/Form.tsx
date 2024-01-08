@@ -126,19 +126,24 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
   } ,[userInputs?.contact])
 
   useEffect(() =>{
-    if (userForm.selected_datetime){
+    if (userForm.selected_date && userForm.selected_starttime && userForm.selected_endtime){
       let prevSlots = userInputs.slot || {}
       setFormData({
         ...userInputs,
         slot : {
           ...prevSlots,
-          time : `${userForm.selected_datetime}:00+01:00`,
+          time : `${userForm.selected_date}T${userForm.selected_starttime}:00+01:00`,
+          endtime : `${userForm.selected_date}T${userForm.selected_endtime}:00+01:00`,
           calendarId : userInputs?.custom_datetime_calendarId,
           room : userInputs?.custom_datetime_room,
         }
       })
     }
-  }, [userForm.selected_datetime])
+    // selected_date
+    // selected_starttime
+    // selected_endtime
+  }, [userForm.selected_date, userForm.selected_starttime, userForm.selected_endtime])
+  console.log(userInputs)
 
   return (
     <>
@@ -280,21 +285,51 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
       </div>
       {
         userInputs?.customDateTime && 
-        <div className="flex flex-col gap-3 md:flex-row w-full mb-3">
-          <div className="w-full">
-            <TextField
-              fullWidth
-              label="Benutzerdefiniertes Datum und Uhrzeit *"
-              name="selected_datetime"
-              id="fullWidth"
-              type="datetime-local"
-              value={userForm.selected_datetime}
-              onChange={(event) =>{
-                setUserForm({ ...userForm, selected_datetime: `${event.target.value}` })
-              }}
-            />
+        <>
+          <div className="flex flex-col gap-3 md:flex-row w-full mb-3">
+            <div className="w-full">
+              <TextField
+                fullWidth
+                label="Datum auswählen *"
+                name="selected_date"
+                id="fullWidth"
+                type="date"
+                value={userForm.selected_date}
+                onChange={(event) =>{
+                  setUserForm({ ...userForm, selected_date: `${event.target.value}` })
+                }}
+              />
+            </div>
           </div>
-        </div>
+          <div className="flex flex-col gap-3 md:flex-row w-full mb-3">
+            <div className="w-full">
+              <TextField
+                fullWidth
+                label="Startzeit *"
+                name="selected_starttime"
+                id="fullWidth"
+                type="time"
+                value={userForm.selected_starttime}
+                onChange={(event) =>{
+                  setUserForm({ ...userForm, selected_starttime: `${event.target.value}` })
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <TextField
+                fullWidth
+                label="Endzeit *"
+                name="selected_endtime"
+                id="fullWidth"
+                type="time"
+                value={userForm.selected_endtime}
+                onChange={(event) =>{
+                  setUserForm({ ...userForm, selected_endtime: `${event.target.value}` })
+                }}
+              />
+            </div>
+          </div>
+        </>
       }
       <div className="w-full mb-3 flex">
         <Checkbox

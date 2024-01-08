@@ -264,6 +264,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
             >
               <div className="flex items-start gap-3">
                 <div className="text-center flex-1 text-2xl max-h-[375px] overflow-auto customScroll">
+                  <h3>Available Slots</h3>
                   {availableSlots && (
                     <div>
                       <ul
@@ -298,7 +299,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
                   )}
                 </div>
                 <div className="min-w-max max-h-[375px] overflow-auto customScroll px-2">
-                  <h3>Unavailable slots</h3>
+                  <h3 className="text-2xl mb-3">Booked/Blocked slots</h3>
                   {
                     STATIC_SLOTS_LIST?.filter(slt => !slotsText.includes(slt))?.map(bSlot =>{
                       return (
@@ -312,7 +313,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
                             >
                               {bSlot}
                               {/* {moment
-                                .tz(slot.time, "Europe/Amsterdam")
+                                .tz(`2024-01-12T${bSlot}+1000`, "Europe/Amsterdam")
                                 .format("HH:mm")} */}
                             </div>
                           </div>
