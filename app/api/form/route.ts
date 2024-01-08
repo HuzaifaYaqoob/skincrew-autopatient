@@ -29,6 +29,11 @@ export async function PUT(req: NextRequest) {
     city: body.stadt,
     customFields: [],
   };
+
+  // Removing Null Values
+  Object.keys(payload).forEach((key) => {
+    if (!payload[key]) delete payload[key];
+  });
   payload.tags.push(`${treatment.name} gebucht`);
   if (location) {
     payload.tags.push(location?.name);
@@ -131,10 +136,12 @@ export async function PUT(req: NextRequest) {
       }
     }
   } catch (error) {
+    console.log(error)
     return errorResponse(
       `Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.`
     );
   }
+  console.log('No response')
   return errorResponse(
     `Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.`
   );

@@ -59,18 +59,37 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
       tos,
     } = userForm;
 
-    if (
-      // !anrede ||
-      !geschelcht ||
-      !vorname ||
-      !nachname ||
-      !email ||
-      !mobiltelefon ||
-      !adresse ||
-      !plz ||
-      !stadt
-    ) {
-      setError("Bitte füllen Sie alle Felder aus.");
+    if (userInputs?.customDateTime){
+      if (
+
+        !userForm?.selected_date ||
+        !userForm?.selected_starttime ||
+        !userForm?.selected_endtime
+      )
+      {
+        setError("Bitte füllen Sie alle Felder aus.");
+        return;
+      }
+    }
+    // if (
+    //   // !anrede ||
+    //   !geschelcht ||
+    //   !vorname ||
+    //   !nachname ||
+    //   !email ||
+    //   !mobiltelefon ||
+    //   !adresse ||
+    //   !plz ||
+    //   !stadt
+    // ) {
+    //   setError("Bitte füllen Sie alle Felder aus.");
+    //   return;
+    // }
+
+    if (!email && !mobiltelefon){
+      setError(
+        "Übergeben Sie mindestens einen der Parameter Nummer und E-Mail-Abfrage."
+      );
       return;
     }
     if (!tos) {
@@ -80,9 +99,10 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
       return;
     }
 
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (email && !emailRegex.test(email)) {
       setError("Bitte geben Sie eine gültige E-Mail-Adresse ein");
       return;
     }
@@ -156,7 +176,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
         <div className="w-full">
           <TextField
             fullWidth
-            label="Vorname *"
+            label="Vorname"
             name="fname"
             id="fullWidth"
             type="text"
@@ -169,7 +189,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
         <div className="w-full">
           <TextField
             fullWidth
-            label="Nachname *"
+            label="Nachname"
             name="lname"
             type="text"
             id="fullWidth"
@@ -184,7 +204,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
         <div className="w-full">
           <TextField
             fullWidth
-            label="E-Mail *"
+            label="E-Mail"
             name="email"
             type="email"
             id="fullWidth"
@@ -208,7 +228,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
       <div className="flex flex-col gap-3 md:flex-row w-full mb-3">
         <TextField
           fullWidth
-          label="Straße und Hausnummer *"
+          label="Straße und Hausnummer"
           name="adresse"
           multiline
           maxRows={3}
@@ -227,7 +247,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
               labelId="geschelcht"
               id="geschelcht"
               value={userForm.geschelcht}
-              label="Geschelcht *"
+              label="Geschelcht"
               onChange={handleSelectChange}
               name="geschelcht"
             >
@@ -247,7 +267,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
         <div className="w-full">
           <TextField
             fullWidth
-            label="PLZ *"
+            label="PLZ"
             name="zip_code"
             id="fullWidth"
             type="text"
@@ -260,7 +280,7 @@ const Form: React.FC<FormTypes> = ({ userInputs, locContacts, setFormData }) => 
         <div className="w-full">
           <TextField
             fullWidth
-            label="Stadt *"
+            label="Stadt"
             name="city"
             type="text"
             id="fullWidth"
