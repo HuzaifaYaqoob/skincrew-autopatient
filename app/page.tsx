@@ -323,10 +323,13 @@ const App = () => {
                 <div className="desc">
                   <strong className="text-[#041B5B]">Wann:</strong>
                   <p data-time={formData?.slot?.time}>
-                    {formData?.slot?.time &&
+                    {/* {formData?.slot?.time &&
                       dayjs(formData?.slot?.time)
                         .locale("de")
-                        .format("dddd, D. MMMM [um] HH:mm [Uhr]")}
+                        .format("dddd, D. MMMM [um] HH:mm [Uhr]")} */}
+                    {moment
+                      .tz(formData?.slot?.time, "Europe/Amsterdam")
+                      .format("dddd, D. MMMM [um] HH:mm [Uhr]")}
                   </p>
                 </div>
               </div>
