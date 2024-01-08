@@ -36,3 +36,4 @@ const getLocationCalendarBlockedSlots = async (locid:string, calendarId:string, 
     const slots = await getBookedSlots(locid, calendarId, startTime, endTime);
     return slots
 }
+export const dynamic = 'force-dynamic'

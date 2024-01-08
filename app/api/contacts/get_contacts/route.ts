@@ -27,3 +27,5 @@ const getLocationContacts = async (locid:string) => {
     const calendarSlots = await getContacts(locid);
     return calendarSlots
 }
+
+export const dynamic = 'force-dynamic'
