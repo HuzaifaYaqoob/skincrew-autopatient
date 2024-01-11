@@ -265,8 +265,8 @@ const Calendar: React.FC<DateSelectorTypes> = ({
               style={{ transformOrigin: "0 0 0" }}
               {...(renderSlots ? { timeout: 1000 } : {})}
             >
-              <div className="flex items-start gap-3">
-                <div className="text-center flex-1 text-2xl max-h-[375px] overflow-auto customScroll">
+              <div className="flex items-start gap-3 flex-wrap">
+                <div className="text-center flex-1 text-2xl max-h-[375px] min-w-[300px] overflow-auto customScroll">
                   <h3>Available Slots</h3>
                   {availableSlots && (
                     <div>
@@ -301,7 +301,7 @@ const Calendar: React.FC<DateSelectorTypes> = ({
                     </div>
                   )}
                 </div>
-                <div className="min-w-max max-h-[375px] overflow-auto customScroll px-2">
+                <div className="min-w-max flex-1 md:flex-0 max-h-[375px] overflow-auto customScroll px-2">
                   <h3 className="text-2xl mb-3">Booked/Blocked slots</h3>
                   {
                     STATIC_SLOTS_LIST?.filter(slt => !slotsText.includes(slt))?.map(bSlot =>{
