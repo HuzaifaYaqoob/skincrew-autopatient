@@ -37,12 +37,9 @@ async function refreshToken() {
   const token = await getToken();
   const expireDT = moment(token?.expiresIn);
 
-  console.log('TOken Received /////////////')
-  console.log(token?.expiresIn)
-  console.log(expireDT.isBefore(moment.now()))
-  console.log('TOken Received /////////////')
+  console.log('Expiry Date ****')
+  console.log(expireDT)
   if (expireDT.isBefore(moment.now())) {
-    console.log('TOken Received /////////////')
     const payload = {
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
@@ -118,33 +115,6 @@ var SpareToken = {
   "userId": "1bk3D7ACF76mmNUk8xuC",
 }
 
-
-const getLatestLocationToken = async () =>{
-  const url = 'https://services.leadconnectorhq.com/oauth/token';
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Accept: 'application/json'
-    },
-    body: new URLSearchParams({
-      client_id: '65994c15b5855529297b5903-lr22bvlh',
-      client_secret: 'f900380a-15ec-4207-aaff-c2fdd62ce497',
-      grant_type: 'refresh_token',
-      refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgiLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJpRTd1NGJNcmhDcG4xVWl1Y0lqWCIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiY2FsZW5kYXJzLnJlYWRvbmx5IiwiYnVzaW5lc3Nlcy53cml0ZSIsImJ1c2luZXNzZXMucmVhZG9ubHkiLCJjYWxlbmRhcnMud3JpdGUiLCJjYWxlbmRhcnMvZXZlbnRzLnJlYWRvbmx5IiwiY2FsZW5kYXJzL2V2ZW50cy53cml0ZSIsImNhbGVuZGFycy9ncm91cHMucmVhZG9ubHkiLCJjYWxlbmRhcnMvZ3JvdXBzLndyaXRlIiwiY2FtcGFpZ25zLnJlYWRvbmx5IiwiY29udmVyc2F0aW9ucy5yZWFkb25seSIsImNvbnZlcnNhdGlvbnMud3JpdGUiLCJjb252ZXJzYXRpb25zL21lc3NhZ2UucmVhZG9ubHkiLCJjb252ZXJzYXRpb25zL21lc3NhZ2Uud3JpdGUiLCJjb250YWN0cy5yZWFkb25seSIsImNvbnRhY3RzLndyaXRlIiwiZm9ybXMucmVhZG9ubHkiLCJmb3Jtcy53cml0ZSIsImxpbmtzLnJlYWRvbmx5IiwibGlua3Mud3JpdGUiLCJsb2NhdGlvbnMud3JpdGUiLCJsb2NhdGlvbnMucmVhZG9ubHkiLCJsb2NhdGlvbnMvY3VzdG9tVmFsdWVzLnJlYWRvbmx5IiwibG9jYXRpb25zL2N1c3RvbUZpZWxkcy5yZWFkb25seSIsImxvY2F0aW9ucy9jdXN0b21WYWx1ZXMud3JpdGUiLCJsb2NhdGlvbnMvY3VzdG9tRmllbGRzLndyaXRlIiwibG9jYXRpb25zL3Rhc2tzLnJlYWRvbmx5IiwibG9jYXRpb25zL3Rhc2tzLndyaXRlIiwibG9jYXRpb25zL3RhZ3MucmVhZG9ubHkiLCJsb2NhdGlvbnMvdGFncy53cml0ZSIsImxvY2F0aW9ucy90ZW1wbGF0ZXMucmVhZG9ubHkiLCJ1c2Vycy5yZWFkb25seSIsInVzZXJzLndyaXRlIiwib2F1dGgud3JpdGUiLCJvYXV0aC5yZWFkb25seSIsInNuYXBzaG90cy5yZWFkb25seSIsIndvcmtmbG93cy5yZWFkb25seSIsInN1cnZleXMucmVhZG9ubHkiLCJtZWRpYXMucmVhZG9ubHkiLCJtZWRpYXMud3JpdGUiLCJvcHBvcnR1bml0aWVzLnJlYWRvbmx5Iiwib3Bwb3J0dW5pdGllcy53cml0ZSJdLCJjbGllbnQiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMiLCJjbGllbnRLZXkiOiI2NTk5NGMxNWI1ODU1NTI5Mjk3YjU5MDMtbHIyMmJ2bGgifSwiaWF0IjoxNzA0NzEzNTcwLjMwNywiZXhwIjoxNzM2MjQ5NTcwLjMwNywidW5pcXVlSWQiOiIwZTIzM2RhOS04Y2FlLTQ1NzMtYThhYS1mNGVlYjE1YThjYTAifQ.86XLb-SXmSCQiO5Fva0Xi4yUHpVtc0nxmN7Y3DEQb5c',
-      user_type: 'Location',
-    })
-  };
-  
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 export const ghlReqV2 = async (options: {
   url: string;
   method: string;
@@ -152,8 +122,8 @@ export const ghlReqV2 = async (options: {
   data?: any;
   params?: { [key: string]: string | number };
 }): Promise<AxiosResponse<any> | AxiosInstance> => {
-  // const token = await getToken();
-  const token = SpareToken
+  const token = await getToken();
+  // const token = SpareToken
 
   let axiosConfig: any = {
     baseURL: "https://services.leadconnectorhq.com",
@@ -183,8 +153,6 @@ export const ghlReqV2 = async (options: {
       return removeTraceId(r.data);
     })
     .catch(async (error) => {
-      console.log('error.response.data.message :: ', error.response.data.message)
-      console.log(error.response.data.statusCode)
       if (error.response) {
         if (
           error.response.data &&
@@ -196,7 +164,7 @@ export const ghlReqV2 = async (options: {
             error.response.data.message.indexOf("token") > -1
           ) {
             try {
-              console.log("Refreshing token");
+              console.log("Gonna Refreshing token");
               let rf = await refreshToken();
               axiosConfig.headers.Authorization = "Bearer " + rf?.accessToken;
               return await axios
