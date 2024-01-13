@@ -286,11 +286,12 @@ const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
                 }
                 value={formData?.calendar}
               >
-                {locCalendar?.map((contact: TreatmentLocationType) => (
-                  <MenuItem value={contact.id} key={contact.id}>
-                    {contact.name}
+                {locCalendar ? locCalendar?.slice(0,4)?.map((calendar: TreatmentLocationType, i:any) => (
+                  <MenuItem value={calendar.id} key={calendar.id}>
+                    {/* {calendar.name} */}
+                    Room {i + 1}
                   </MenuItem>
-                ))}
+                )) : <></>}
               </Select>
             </FormControl>
           </Box>
