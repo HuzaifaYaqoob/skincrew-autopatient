@@ -72,6 +72,8 @@ const App = () => {
   const [formData, setFormData] = useState<any>({ ...initialFormData });
   const [errorMessage, setErrorMessage] = useState(null);
   const [locContacts, setLocContacts] = useState([])
+  const [locCalendar, setLocCalendars] = useState([])
+
 
 
   const updateDataAndNav = (data: formDataType) => {
@@ -234,9 +236,22 @@ const App = () => {
     }
   };
 
+  const getLocationCalendars = async () => {
+    try {
+      const calendars = await fetchData(`calendar/get_calendars/?LocationId=LiChYfzKCPU5itr4TFJv`);
+      setLocCalendars(calendars)
+    } catch (error) {
+      console.log('error :: ', error)
+    } finally {
+      console.log('get Calendars request finished')
+    }
+  };
+
   useEffect(() =>{
     getLocationContacts()
+    getLocationCalendars()
   }, [])
+
 
   return (
     <div className="parent-container max-w-4xl m-auto mt-10 pt-10">
@@ -264,11 +279,12 @@ const App = () => {
               onSubmit={updateDataAndNav}
               value={formData}
               locContacts={locContacts}
+              locCalendar={locCalendar}
             />
           )}
           {activeStep === 1 && (
             <Calendar
-              calendarId={formData.location}
+              calendarId={formData.calendar || formData.location}
               userInputs={formData}
               onSubmit={updateDataAndNav}
               setActiveStep={setActiveStep}

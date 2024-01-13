@@ -14,11 +14,13 @@ import CalendarData, { TreatmentLocationType } from "@/app/calanderData";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import fetchData from "@/app/api/api";
 
 interface CategoryTreatmentLocationProps {
   onSubmit: (data: formDataType) => void;
   value: formDataType;
-  locContacts? : any
+  locContacts? : any;
+  locCalendar? : any;
 }
 
 const ContinueButton = styled(Button)<ButtonProps>(() => ({
@@ -32,16 +34,19 @@ const ContinueButton = styled(Button)<ButtonProps>(() => ({
 const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
   onSubmit,
   value,
-  locContacts
+  locContacts,
+  locCalendar,
 }) => {
   const [formData, setFormData] = useState<formDataType>({
     category: "",
     treatment: "",
     location: "",
+    calendar: "",
     patiententyp: "",
     tos: false,
   });
   const [isQuery, setIsQuery] = useState<boolean>(false);
+
 
   useEffect(() => {
     setFormData((prevState) => ({ ...prevState, ...value }));
@@ -137,10 +142,9 @@ const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
           }
         }
       }
-
     }
-
   }, [formData.category, formData.treatment, formData.location])
+
 
 
   return (
@@ -260,6 +264,38 @@ const CategoryTreatmentLocation: React.FC<CategoryTreatmentLocationProps> = ({
           />
         </RadioGroup>
       )}
+      {
+        hasValue(formData.location) &&
+        <>
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            className="flex flex-col mt-5"
+          >
+            <FormControl fullWidth size="medium">
+              <InputLabel id="Kalender-select-label">Kalender</InputLabel>
+              <Select
+                labelId="Kalender-select-label"
+                id="Kalender-select"
+                label="Kalender"
+                onChange={(e) =>{
+                    setFormValue("calendar", e.target.value as string)
+                    setFormValue("custom_datetime_calendarId", e.target.value as string)
+                  }
+                }
+                value={formData?.calendar}
+              >
+                {locCalendar?.map((contact: TreatmentLocationType) => (
+                  <MenuItem value={contact.id} key={contact.id}>
+                    {contact.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </>
+      }
       {
         hasValue(formData.location) && formData.patiententyp == 'Stammpatient' &&
         <>

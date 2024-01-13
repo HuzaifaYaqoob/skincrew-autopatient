@@ -91,7 +91,8 @@ export async function PUT(req: NextRequest) {
           title: `Appointment booked for ${contact.firstName} ${contact.lastName}`,
           startTime: body.slot.time,
           endTime: end.format(),
-          calendarId: body.slot.room,
+          // calendarId: body.slot.room,
+          calendarId: body.calendar,
         });
         try {
           if (block) {

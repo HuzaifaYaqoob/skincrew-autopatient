@@ -263,6 +263,23 @@ export const getContacts = async (locid:string): Promise<any> => {
   }
 };
 
+export const getCalendars = async (locid:string): Promise<any> => {
+  try {
+    const locationId = locid || process.env.LOCATION;
+    console.log(locationId)
+    const { calendars = null }: any = await ghlReqV2({
+      method: "GET",
+      url: `/calendars/?locationId=${locationId}`,
+    });
+    return calendars;
+  } catch (error) {
+    console.log("====================================");
+    console.log("Get Calendars Error", error);
+    console.log("====================================");
+    throw error;
+  }
+};
+
 export const getBookedSlots = async (locationId:string, calendarId:string, startTime:string, endTime:string): Promise<any> => {
   try {
     const { blockedSlots = null }: any = await ghlReqV2({

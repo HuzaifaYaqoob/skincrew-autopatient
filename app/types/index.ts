@@ -19,6 +19,7 @@ export interface formDataType {
   category: string | null | "";
   treatment: string | null | "" | number;
   location: string | null | "" | number;
+  calendar?: string | null | "" | number;
   doubleBookable?: boolean | null | "";
   calendarId?: string | null | "";
   doneBy?: string | null | "";
